@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path, include
 import debug_toolbar
 
+from storefront import settings
+
 admin.site.site_header = 'Storefront Admin'
 admin.site.index_title = 'Admin'
 
@@ -28,3 +30,6 @@ urlpatterns = [
     path('auth/', include('djoser.urls.jwt')),
     path('__debug__/', include(debug_toolbar.urls)),
 ]
+
+if settings.DEBUG:
+    urlpatterns += [path('silk/', include('silk.urls', namespace='silk'))]
