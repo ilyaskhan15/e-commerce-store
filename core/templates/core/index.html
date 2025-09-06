@@ -1,11 +1,22 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <title>Ilyas Store - Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{% static 'core/style.css' %}">
 </head>
 <body>
-    
+  <div class="container">
+    <div class="content">
+      <p>Buy from</p>
+      <h1>Ilyas Store</h1>
+      <button class="cta-btn">Shop Now</button>
+    </div>
+    <div class="illustration">
+      <img src="{% static 'core/final.svg' %}" alt="Ilyas Store">
+    </div>
+  </div>
 </body>
 </html>
