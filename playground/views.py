@@ -5,13 +5,21 @@ from django.views.decorators.cache import cache_page
 import requests
 from rest_framework.response import Response
 from django.utils.decorators import method_decorator
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class HelloView(APIView):
-    @method_decorator(cache_page(60 * 15))  # Cache the view for 15 minutes 
+    # @method_decorator(cache_page(60 * 15))  # Cache the view for 15 minutes 
     def get(self, request):
-        response = requests.get('https://httpbin.org/delay/2')
-        data = response.json()
+        try:
+            logger.info("Calling external service")
+            response = requests.get('https://httpbin.org/delay/2')
+            logger.info(f"External service response: {response.status_code}")
+            data = response.json()
+        except request.ConnectionError:
+            logger.critical("Connection error when calling external service")
         return render(request, 'hello.html', {'name': "Mosh"})
 
 # @cache_page(60 * 15)  # Cache the view for 15 minutes
