@@ -14,6 +14,8 @@ djoser = "*"
 djangorestframework-simplejwt = "*"
 django-redis = "*"
 whitenoise = "*"
+gunicorn = "*"
+python-dotenv = "*"
 
 [dev-packages]
 autopep8 = "*"

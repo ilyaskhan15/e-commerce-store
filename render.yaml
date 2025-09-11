@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: storefront-app
+    env: python
+    plan: free
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn storefront.wsgi:application --bind 0.0.0.0:$PORT"
+    envVars:
+      - key: DJANGO_ENV
+        value: production
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: "False"
+      - key: ALLOWED_HOSTS
+        value: ".onrender.com"
+      - key: CSRF_TRUSTED_ORIGINS
+        value: "https://*.onrender.com"
