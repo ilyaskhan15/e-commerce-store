@@ -16,6 +16,7 @@ django-redis = "*"
 whitenoise = "*"
 gunicorn = "*"
 python-dotenv = "*"
+psycopg2-binary = "*"
 
 [dev-packages]
 autopep8 = "*"
