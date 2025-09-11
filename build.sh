@@ -8,8 +8,7 @@ export DJANGO_ENV=production
 # Install dependencies
 pip install -r requirements.txt
 
-# Collect static files
+# Collect static files (no database connection needed)
 python manage.py collectstatic --noinput --settings=storefront.production_settings
 
-# Apply database migrations
-python manage.py migrate --settings=storefront.production_settings
+echo "Build completed successfully. Database migrations will run at startup."
