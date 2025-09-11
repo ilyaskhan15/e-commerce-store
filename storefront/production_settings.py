@@ -34,6 +34,14 @@ else:
         }
     }
 
+# Add connection options for better reliability
+DATABASES['default']['OPTIONS'] = {
+    'connect_timeout': 30,
+}
+
+# Connection pooling and retry logic
+DATABASES['default']['CONN_MAX_AGE'] = 600
+
 # Static files with Whitenoise
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
