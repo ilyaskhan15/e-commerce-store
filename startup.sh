@@ -12,6 +12,29 @@ python test_db_connection.py || echo "⚠️  Database connection test failed, c
 echo "Running database migrations..."
 python manage.py migrate --settings=storefront.production_settings || echo "⚠️  Database migrations failed, continuing with startup..."
 
+# Populate sample data if using SQLite fallback
+echo "Checking if sample data population is needed..."
+python manage.py shell --settings=storefront.production_settings -c "
+from django.conf import settings
+from store.models import Collection
+import subprocess
+import sys
+
+try:
+    # Check if we're using SQLite and if we have data
+    if 'sqlite' in settings.DATABASES['default']['ENGINE']:
+        print('Using SQLite database')
+        if Collection.objects.count() == 0:
+            print('No collections found, populating sample data...')
+            subprocess.run([sys.executable, 'manage.py', 'populate_sample_data', '--settings=storefront.production_settings'])
+        else:
+            print(f'Found {Collection.objects.count()} collections, skipping sample data')
+    else:
+        print('Using PostgreSQL database, skipping sample data population')
+except Exception as e:
+    print(f'Error checking database: {e}')
+" || echo "⚠️  Sample data check failed, continuing with startup..."
+
 # Create superuser if needed (only if database is available)
 echo "Creating superuser if needed..."
 python manage.py shell --settings=storefront.production_settings -c "
