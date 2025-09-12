@@ -23,26 +23,32 @@ if os.getenv('DATABASE_URL'):
         'default': dj_database_url.parse(os.getenv('DATABASE_URL'))
     }
 elif all([os.getenv('DB_HOST'), os.getenv('DB_NAME'), os.getenv('DB_USER'), os.getenv('DB_PASSWORD')]):
-    # Fallback to individual environment variables
+    # Use individual environment variables - try full hostname first
+    db_host = os.getenv('DB_HOST')
+    
+    # If hostname doesn't contain domain, add it
+    if '.' not in db_host:
+        db_host = f"{db_host}.render-postgres.render.com"
+    
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': os.getenv('DB_NAME'),
             'USER': os.getenv('DB_USER'),
             'PASSWORD': os.getenv('DB_PASSWORD'),
-            'HOST': os.getenv('DB_HOST'),
+            'HOST': db_host,
             'PORT': os.getenv('DB_PORT', '5432'),
         }
     }
 else:
-    # Last resort - try internal hostname
+    # Last resort - hardcoded with full hostname
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': 'storefront2',
             'USER': 'storefront_user',
             'PASSWORD': 'DwNnRY5evmcgWpZrhfsU5TwLgIJ6MhGj',
-            'HOST': 'dpg-d31a20gd13ps73e825ag-a',  # Internal hostname without domain
+            'HOST': 'dpg-d31a20gd13ps73e825ag-a.render-postgres.render.com',
             'PORT': '5432',
         }
     }
