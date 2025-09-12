@@ -41,9 +41,14 @@ python manage.py shell --settings=storefront.production_settings -c "
 try:
     from django.contrib.auth import get_user_model
     User = get_user_model()
-    if not User.objects.filter(username='admin').exists():
+    # Check for your username first
+    if not User.objects.filter(username='ilyaskhann').exists():
+        User.objects.create_superuser('ilyaskhann', 'ilyaskhann@gmail.com', 'ilyaskhan123')
+        print('Superuser ilyaskhann created')
+    # Fallback admin user
+    elif not User.objects.filter(username='admin').exists():
         User.objects.create_superuser('admin', 'admin@example.com', 'admin123')
-        print('Superuser created')
+        print('Fallback admin superuser created')
     else:
         print('Superuser already exists')
 except Exception as e:
