@@ -1,0 +1,18 @@
+# Alternative DATABASE_URL formats to try
+
+# Option 1: Internal hostname (current - failing)
+DATABASE_URL=postgresql://storefront_user:DwNnRY5evmcgWpZrhfsU5TwLgIJ6MhGj@dpg-d31a20gd13ps73e825ag-a.render-postgres.render.com:5432/storefront2
+
+# Option 2: Internal hostname without render domain suffix
+DATABASE_URL_INTERNAL=postgresql://storefront_user:DwNnRY5evmcgWpZrhfsU5TwLgIJ6MhGj@dpg-d31a20gd13ps73e825ag-a:5432/storefront2
+
+# Option 3: Try with different port or hostname variations
+DATABASE_URL_ALT1=postgresql://storefront_user:DwNnRY5evmcgWpZrhfsU5TwLgIJ6MhGj@dpg-d31a20gd13ps73e825ag-a.postgres.render.com:5432/storefront2
+
+# Option 4: Individual environment variables approach
+DB_HOST=dpg-d31a20gd13ps73e825ag-a
+DB_HOST_FULL=dpg-d31a20gd13ps73e825ag-a.render-postgres.render.com
+DB_NAME=storefront2
+DB_USER=storefront_user
+DB_PASSWORD=DwNnRY5evmcgWpZrhfsU5TwLgIJ6MhGj
+DB_PORT=5432

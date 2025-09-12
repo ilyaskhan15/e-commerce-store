@@ -1,3 +1,9 @@
+databases:
+  - name: storefront-db
+    databaseName: storefront2
+    user: storefront_user
+    plan: free
+
 services:
   - type: web
     name: storefront-app
@@ -17,4 +23,6 @@ services:
       - key: CSRF_TRUSTED_ORIGINS
         value: "https://*.onrender.com"
       - key: DATABASE_URL
-        value: "postgresql://storefront_user:DwNnRY5evmcgWpZrhfsU5TwLgIJ6MhGj@dpg-d31a20gd13ps73e825ag-a.render-postgres.render.com:5432/storefront2"
+        fromDatabase:
+          name: storefront-db
+          property: connectionString

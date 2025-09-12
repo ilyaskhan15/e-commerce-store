@@ -22,7 +22,8 @@ if os.getenv('DATABASE_URL'):
     DATABASES = {
         'default': dj_database_url.parse(os.getenv('DATABASE_URL'))
     }
-else:
+elif all([os.getenv('DB_HOST'), os.getenv('DB_NAME'), os.getenv('DB_USER'), os.getenv('DB_PASSWORD')]):
+    # Fallback to individual environment variables
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
@@ -31,6 +32,18 @@ else:
             'PASSWORD': os.getenv('DB_PASSWORD'),
             'HOST': os.getenv('DB_HOST'),
             'PORT': os.getenv('DB_PORT', '5432'),
+        }
+    }
+else:
+    # Last resort - try internal hostname
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'storefront2',
+            'USER': 'storefront_user',
+            'PASSWORD': 'DwNnRY5evmcgWpZrhfsU5TwLgIJ6MhGj',
+            'HOST': 'dpg-d31a20gd13ps73e825ag-a',  # Internal hostname without domain
+            'PORT': '5432',
         }
     }
 
