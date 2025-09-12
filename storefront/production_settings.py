@@ -11,6 +11,10 @@ from .settings import *
 # Override production settings
 DEBUG = False
 
+# Remove Silk from production for database connection issues
+INSTALLED_APPS = [app for app in INSTALLED_APPS if app != 'silk']
+MIDDLEWARE = [middleware for middleware in MIDDLEWARE if 'silk' not in middleware.lower()]
+
 # Security settings
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '.onrender.com').split(',')
 CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', 'https://*.onrender.com').split(',')
