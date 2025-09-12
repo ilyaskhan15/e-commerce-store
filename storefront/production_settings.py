@@ -27,6 +27,24 @@ import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+def test_db_connection(db_config):
+    """Test if a database configuration works"""
+    try:
+        import psycopg2
+        conn = psycopg2.connect(
+            host=db_config.get('HOST'),
+            database=db_config.get('NAME'),
+            user=db_config.get('USER'),
+            password=db_config.get('PASSWORD'),
+            port=db_config.get('PORT', '5432'),
+            connect_timeout=5
+        )
+        conn.close()
+        return True
+    except Exception as e:
+        logger.warning(f"Database connection test failed: {e}")
+        return False
+
 if os.getenv('DATABASE_URL'):
     logger.info(f"Using DATABASE_URL configuration")
     DATABASES = {
@@ -41,16 +59,27 @@ elif all([os.getenv('DB_HOST'), os.getenv('DB_NAME'), os.getenv('DB_USER'), os.g
     if '.' not in db_host:
         db_host = f"{db_host}.render-postgres.render.com"
     
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.getenv('DB_NAME'),
-            'USER': os.getenv('DB_USER'),
-            'PASSWORD': os.getenv('DB_PASSWORD'),
-            'HOST': db_host,
-            'PORT': os.getenv('DB_PORT', '5432'),
-        }
+    db_config = {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': db_host,
+        'PORT': os.getenv('DB_PORT', '5432'),
     }
+    
+    # Test the connection
+    if test_db_connection(db_config):
+        logger.info("PostgreSQL connection successful")
+        DATABASES = {'default': db_config}
+    else:
+        logger.warning("PostgreSQL connection failed, falling back to SQLite")
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.sqlite3',
+                'NAME': BASE_DIR / 'production_db.sqlite3',
+            }
+        }
 else:
     # Use SQLite as a fallback if no database configuration is available
     # This prevents the app from crashing if database is not configured
