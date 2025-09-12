@@ -1,0 +1,18 @@
+# Environment Variables for Render Web Service
+# Copy these to your Render web service Environment tab
+
+DJANGO_ENV=production
+DEBUG=False
+ALLOWED_HOSTS=.onrender.com
+CSRF_TRUSTED_ORIGINS=https://*.onrender.com
+SECRET_KEY=)*$@z#zmkbif0hhu6)y#*#*qulg2)3h#&jfg+z-h6nf-9552r2
+
+# Database connection - based on your database screenshots
+DATABASE_URL=postgresql://storefront_user:DwNnRY5evmcgWpZrhfsU5TwLgIJ6MhGj@dpg-d31a20gd13ps73e825ag-a.render-postgres.render.com:5432/storefront2
+
+# Alternative individual database variables (if needed)
+DB_NAME=storefront2
+DB_USER=storefront_user
+DB_PASSWORD=DwNnRY5evmcgWpZrhfsU5TwLgIJ6MhGj
+DB_HOST=dpg-d31a20gd13ps73e825ag-a.render-postgres.render.com
+DB_PORT=5432
