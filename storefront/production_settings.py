@@ -21,14 +21,21 @@ CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', 'https://*.onrender.com
 
 # Database - use DATABASE_URL if available, otherwise individual env vars
 import dj_database_url
+import logging
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 if os.getenv('DATABASE_URL'):
+    logger.info(f"Using DATABASE_URL configuration")
     DATABASES = {
         'default': dj_database_url.parse(os.getenv('DATABASE_URL'))
     }
 elif all([os.getenv('DB_HOST'), os.getenv('DB_NAME'), os.getenv('DB_USER'), os.getenv('DB_PASSWORD')]):
     # Use individual environment variables - try full hostname first
     db_host = os.getenv('DB_HOST')
+    logger.info(f"Using individual env vars. DB_HOST: {db_host}")
     
     # If hostname doesn't contain domain, add it
     if '.' not in db_host:
@@ -45,25 +52,26 @@ elif all([os.getenv('DB_HOST'), os.getenv('DB_NAME'), os.getenv('DB_USER'), os.g
         }
     }
 else:
-    # Last resort - hardcoded with full hostname
+    # Use SQLite as a fallback if no database configuration is available
+    # This prevents the app from crashing if database is not configured
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'storefront2',
-            'USER': 'storefront_user',
-            'PASSWORD': 'DwNnRY5evmcgWpZrhfsU5TwLgIJ6MhGj',
-            'HOST': 'dpg-d31a20gd13ps73e825ag-a.render-postgres.render.com',
-            'PORT': '5432',
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'fallback_db.sqlite3',
         }
     }
+    
+    # Log that we're using fallback
+    import logging
+    logging.warning("No database configuration found, using SQLite fallback")
 
-# Add connection options for better reliability
-DATABASES['default']['OPTIONS'] = {
-    'connect_timeout': 30,
-}
-
-# Connection pooling and retry logic
-DATABASES['default']['CONN_MAX_AGE'] = 600
+# Only add connection options if we're using PostgreSQL
+if DATABASES['default']['ENGINE'] == 'django.db.backends.postgresql':
+    DATABASES['default']['OPTIONS'] = {
+        'connect_timeout': 30,
+    }
+    # Connection pooling and retry logic
+    DATABASES['default']['CONN_MAX_AGE'] = 600
 
 # Static files with Whitenoise
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
