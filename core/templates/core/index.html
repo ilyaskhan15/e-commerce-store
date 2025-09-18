@@ -1,0 +1,183 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-MagaMart - Your Ultimate Shopping Destination</title>
+    <link rel="stylesheet" href="{% static 'core/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="/" class="logo">E-MagaMart</a>
+                <ul class="nav-links">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/store/">Products</a></li>
+                    <li><a href="/store/collections/">Collections</a></li>
+                    <li><a href="/admin/">Admin</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Welcome to E-MagaMart</h1>
+                <p>Discover amazing products at unbeatable prices. Your one-stop shop for everything you need!</p>
+                <a href="/store/" class="btn">Shop Now</a>
+                <a href="/store/collections/" class="btn btn-secondary">Browse Collections</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2>Why Choose E-MagaMart?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shipping-fast"></i>
+                    </div>
+                    <h3>Fast Shipping</h3>
+                    <p>Get your orders delivered quickly with our express shipping options. Free shipping on orders over $50!</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Secure Shopping</h3>
+                    <p>Shop with confidence knowing your personal information is protected with our advanced security measures.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>24/7 Support</h3>
+                    <p>Our customer support team is always ready to help you with any questions or concerns you may have.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products Section -->
+    <section class="products">
+        <div class="container">
+            <h2>Featured Products</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fas fa-laptop"></i>
+                    </div>
+                    <div class="product-info">
+                        <h3>Electronics</h3>
+                        <div class="product-price">From $99.99</div>
+                        <p class="product-description">Latest technology gadgets and electronics for your everyday needs.</p>
+                        <a href="/store/collections/" class="btn">View Collection</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fas fa-tshirt"></i>
+                    </div>
+                    <div class="product-info">
+                        <h3>Fashion</h3>
+                        <div class="product-price">From $29.99</div>
+                        <p class="product-description">Trendy clothing and accessories for men, women, and children.</p>
+                        <a href="/store/collections/" class="btn">View Collection</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <div class="product-info">
+                        <h3>Home & Garden</h3>
+                        <div class="product-price">From $19.99</div>
+                        <p class="product-description">Beautiful home decor and garden essentials to make your space perfect.</p>
+                        <a href="/store/collections/" class="btn">View Collection</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Start Shopping?</h2>
+            <p>Join thousands of satisfied customers and discover amazing deals on quality products.</p>
+            <a href="/store/" class="btn">Start Shopping</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/store/">Products</a></li>
+                        <li><a href="/store/collections/">Collections</a></li>
+                        <li><a href="/admin/">Admin</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="#contact">Contact Us</a></li>
+                        <li><a href="#shipping">Shipping Info</a></li>
+                        <li><a href="#returns">Returns</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect With Us</h3>
+                    <ul>
+                        <li><a href="#facebook"><i class="fab fa-facebook"></i> Facebook</a></li>
+                        <li><a href="#twitter"><i class="fab fa-twitter"></i> Twitter</a></li>
+                        <li><a href="#instagram"><i class="fab fa-instagram"></i> Instagram</a></li>
+                        <li><a href="#linkedin"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 E-MagaMart. All rights reserved. Built with Django & ❤️</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Mobile Menu -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+            
+            hamburger.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+            });
+            
+            // Close menu when clicking on a link
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navLinks.classList.remove('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
