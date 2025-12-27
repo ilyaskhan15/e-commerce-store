@@ -13,6 +13,7 @@ django-filter = "*"
 djoser = "*"
 djangorestframework-simplejwt = "*"
 django-redis = "*"
+django-silk = "*"
 
 [dev-packages]
 autopep8 = "*"
@@ -20,4 +21,4 @@ locust = "*"
 django-silk = "*"
 
 [requires]
-python_version = "3.9"
+python_version = "3.13"
